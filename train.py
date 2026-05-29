@@ -71,7 +71,7 @@ results_df = pd.DataFrame({
 
 
 
-# --- Step 1: Pinnacle fair probabilities on test set ---
+# Pinnacle fair probabilities on test set 
 test_df['imp_home'] = 1 / test_df['PSCH']
 test_df['imp_draw'] = 1 / test_df['PSCD']
 test_df['imp_away'] = 1 / test_df['PSCA']
@@ -81,7 +81,7 @@ test_df['market_draw'] = test_df['imp_draw'] / test_df['overround']
 test_df['market_away'] = test_df['imp_away'] / test_df['overround']
 
 
-# --- Step 2: Model predictions for every test match ---
+# Model predictions for every test match
 def predict_match(home_team, away_team, attack, defense, gamma, team_idx, max_goals=10):
     i = team_idx[home_team]
     j = team_idx[away_team]
@@ -112,13 +112,13 @@ test_df['model_home'] = model_home
 test_df['model_draw'] = model_draw
 test_df['model_away'] = model_away
 
-# --- Step 3: Have a look at the comparison ---
+# Have a look at the comparison
 cols = ['HomeTeam', 'AwayTeam', 'FTR',
         'model_home', 'market_home',
         'model_draw', 'market_draw',
         'model_away', 'market_away']
 
-# --- Step 4: Score model vs market with proper scoring rules ---
+# Score model vs market with proper scoring rules
 
 # Build the "actual outcome" column as 0/1 indicators
 test_df['actual_home'] = (test_df['FTR'] == 'H').astype(int)
@@ -157,7 +157,7 @@ print(f"Brier      |  Model: {model_bs:.4f}   Market: {market_bs:.4f}   Diff: {m
 print(f"(Lower = better. Positive Diff means market is sharper.)")
 
 
-# --- Dixon-Coles ---
+# Dixon-Coles
 
 def tau(i, j, lh, la, rho):
     """Low-score correction factor."""
@@ -271,7 +271,7 @@ print(f"Log loss   |  Poisson: {model_ll:.4f}   DC: {dc_ll:.4f}   Market: {marke
 print(f"Brier      |  Poisson: {model_bs:.4f}   DC: {dc_bs:.4f}   Market: {market_bs:.4f}")
 
 
-# --- Step 9: Time-weighted Dixon-Coles ---
+# Time-weighted Dixon-Coles
 
 # Convert Date column to datetime
 train_df['Date_parsed'] = pd.to_datetime(train_df['Date'], dayfirst=True)
