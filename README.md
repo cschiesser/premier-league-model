@@ -16,7 +16,7 @@ and evaluating against Pinnacle's closing odds.
 - Pinnacle's closing odds are nearly perfectly calibrated 
   (see `calibration.png`)
 - Pinnacle averaged 2.93% margin (overround) across the season
-- Best model achieved log loss 0.9574 vs market's 0.9264 — 
+- Best model achieved log loss 0.9574 vs market's 0.9264 
   the market is approximately 3% sharper
 
 ## Files
